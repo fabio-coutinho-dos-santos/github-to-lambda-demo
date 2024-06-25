@@ -14,17 +14,17 @@ phases:
       - echo "Installing dependencies"
       - npm install
     
-    pre-build:
-      - echo "Running pre build commands"
+  pre_build:
+    - echo "Running pre build commands"
 
-    build:
-      - echo "Zipping the lambda function"
-      - zip -r github-to-lambda-demo.zip
-      # - zip -r ${ZIP_FILE} . -x '*.git*' 'node_modules/aws-sdk/*'
+  build:
+    - echo "Zipping the lambda function"
+    - zip -r github-to-lambda-demo.zip
+    # - zip -r ${ZIP_FILE} . -x '*.git*' 'node_modules/aws-sdk/*'
 
-    post_build:
-      commands:
-        - echo "Post-build - Uploading to S3"
-        - aws s3 cp github-to-lambda-demo.zip s3://my-deployment-bucket/github-to-lambda-demo.zip
-        - echo "Updating Lambda function"
-        - aws lambda update-function-code --function-name github-to-lambda-demo --s3-bucket my-deployment-bucket --s3-key github-to-lambda-demo.zip
+  post_build:
+    commands:
+      - echo "Post-build - Uploading to S3"
+      - aws s3 cp github-to-lambda-demo.zip s3://my-deployment-bucket/github-to-lambda-demo.zip
+      - echo "Updating Lambda function"
+      - aws lambda update-function-code --function-name github-to-lambda-demo --s3-bucket my-deployment-bucket --s3-key github-to-lambda-demo.zip
