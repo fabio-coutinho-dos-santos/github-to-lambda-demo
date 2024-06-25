@@ -15,12 +15,14 @@ phases:
       - npm install
     
   pre_build:
-    - echo "Running pre build commands"
+    commands:
+      - echo "Running pre build commands"
 
   build:
-    - echo "Zipping the lambda function"
-    - zip -r github-to-lambda-demo.zip
-    # - zip -r ${ZIP_FILE} . -x '*.git*' 'node_modules/aws-sdk/*'
+    commands:
+      - echo "Zipping the lambda function"
+      - zip -r github-to-lambda-demo.zip
+      # - zip -r ${ZIP_FILE} . -x '*.git*' 'node_modules/aws-sdk/*'
 
   post_build:
     commands:
