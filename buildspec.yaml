@@ -1,10 +1,10 @@
 version: 0.2
 
-env:
-  variables:
-    FUNCTION_NAME: "github-to-lambda-demo"
-    S3_BUCKET: "my-deployment-bucket"
-    ZIP_FILE: "github-to-lambda-demo.zip"
+# env:
+#   variables:
+#     FUNCTION_NAME: "github-to-lambda-demo"
+#     S3_BUCKET: "my-deployment-bucket"
+#     ZIP_FILE: "github-to-lambda-demo.zip"
 
 phases:
   install:
@@ -19,12 +19,12 @@ phases:
 
     build:
       - echo "Zipping the lambda function"
-      - zip -r {$ZIP_FILE}
+      - zip -r github-to-lambda-demo.zip
       # - zip -r ${ZIP_FILE} . -x '*.git*' 'node_modules/aws-sdk/*'
 
     post_build:
       commands:
         - echo "Post-build - Uploading to S3"
-        - aws s3 cp ${ZIP_FILE} s3://${S3_BUCKET}/${ZIP_FILE}
+        - aws s3 cp github-to-lambda-demo.zip s3://my-deployment-bucket/github-to-lambda-demo.zip
         - echo "Updating Lambda function"
-        - aws lambda update-function-code --function-name ${FUNCTION_NAME} --s3-bucket ${S3_BUCKET} --s3-key ${ZIP_FILE}
+        - aws lambda update-function-code --function-name github-to-lambda-demo --s3-bucket my-deployment-bucket --s3-key github-to-lambda-demo.zip
