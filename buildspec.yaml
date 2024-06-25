@@ -3,7 +3,7 @@ version: 0.2
 # env:
 #   variables:
 #     FUNCTION_NAME: "github-to-lambda-demo"
-#     S3_BUCKET: "my-deployment-bucket"
+#     S3_BUCKET: "my-deployment-bucket-fabio"
 #     ZIP_FILE: "github-to-lambda-demo.zip"
 
 phases:
@@ -27,9 +27,9 @@ phases:
   post_build:
     commands:
       - echo "Post-build - Uploading to S3"
-      - aws s3 cp github-to-lambda-demo.zip s3://my-deployment-bucket/github-to-lambda-demo.zip
+      - aws s3 cp github-to-lambda-demo.zip s3://my-deployment-bucket-fabio/github-to-lambda-demo.zip
       - echo "Updating Lambda function"
-      - aws lambda update-function-code --function-name github-to-lambda-demo --s3-bucket my-deployment-bucket --s3-key github-to-lambda-demo.zip
+      - aws lambda update-function-code --function-name github-to-lambda-demo --s3-bucket my-deployment-bucket-fabio --s3-key github-to-lambda-demo.zip
 
 artifacts:
   files:
